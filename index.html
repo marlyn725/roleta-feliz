@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roleta Feliz</title>
+  <meta name="theme-color" content="#000000" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><text x='0' y='140' font-size='120'>🍑💋🔥👄🍆</text></svg>");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 1.2s ease-in;
+    }
+    h1, h2 {
+      text-shadow: 2px 2px 4px #000;
+    }
+    .highlight {
+      font-size: 18px;
+      margin: 20px 0;
+      color: #ffaaaa;
+      text-shadow: 1px 1px 3px #000;
+    }
+    button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .hidden {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input[type="text"], select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      width: 80%;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="setup-screen">
+    <h1>Roleta Feliz</h1>
+    <div class="form-group">
+      <label>Modo do Jogo:</label>
+      <select id="modo">
+        <option value="hetero">Heterossexual</option>
+        <option value="gay">Homossexual (dois homens)</option>
+        <option value="lesbica">Homossexual (duas mulheres)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Nome do Participante 1:</label>
+      <input type="text" id="nome1" placeholder="Ex: João" />
+      <label>Sexo:</label>
+      <select id="sexo1">
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Nome do Participante 2:</label>
+      <input type="text" id="nome2" placeholder="Ex: Maria" />
+      <label>Sexo:</label>
+      <select id="sexo2">
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Itens Disponíveis:</label>
+      <label><input type="checkbox" value="algemas" /> Algemas</label>
+      <label><input type="checkbox" value="lubrificante" /> Lubrificante</label>
+      <label><input type="checkbox" value="preservativo" /> Preservativos</label>
+      <label><input type="checkbox" value="vibrador" /> Vibrador</label>
+    </div>
+    <button onclick="iniciarJogo()">Começar Jogo</button>
+  </div>
+
+  <div id="game-screen" class="hidden">
+    <h1>Roleta Feliz</h1>
+    <h2>Rodada <span id="round">1</span> — <span id="nivel">Normal</span></h2>
+    <p id="participante" class="highlight"></p>
+    <button onclick="sortearParticipante()">Quem joga agora?</button>
+    <div id="acao-container" class="hidden">
+      <button onclick="sortearAcao()">Verdade ou Desafio?</button>
+      <p id="resultado" class="highlight"></p>
+    </div>
+    <div id="timer-container" class="hidden">
+      <button onclick="iniciarTempo()">Iniciar tempo</button>
+      <p id="timer-texto" class="hidden"></p>
+    </div>
+    <button onclick="pularDesafio()">Pular Desafio (-1 ponto)</button>
+    <button onclick="reiniciarJogo()">Reiniciar</button>
+  </div>
+
+  <script>
+    function iniciarJogo() {
+      document.getElementById('setup-screen').classList.add('hidden');
+      document.getElementById('game-screen').classList.remove('hidden');
+    }
+
+    function sortearParticipante() {
+      const nome1 = document.getElementById("nome1").value;
+      const nome2 = document.getElementById("nome2").value;
+      const participante = Math.random() < 0.5 ? nome1 : nome2;
+      document.getElementById("participante").textContent = "Participante: " + participante;
+      document.getElementById("acao-container").classList.remove("hidden");
+    }
+
+    function sortearAcao() {
+      const tipo = Math.random() < 0.5 ? "Verdade ❓" : "Desafio 🔥";
+      document.getElementById("resultado").textContent = tipo + ": (exibição da ação personalizada)";
+    }
+
+    function iniciarTempo() {
+      document.getElementById("timer-texto").classList.remove("hidden");
+      document.getElementById("timer-texto").textContent = "Contando...";
+    }
+
+    function pularDesafio() {
+      document.getElementById("resultado").textContent = "Desafio 🔥 (substituído por outro)";
+    }
+
+    function reiniciarJogo() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
